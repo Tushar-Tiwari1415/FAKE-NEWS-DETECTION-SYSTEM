@@ -1,0 +1,22 @@
+1.If your model is always predicting “FAKE”
+Your dataset might be imbalanced or labels incorrect
+2.“The model was initially biased toward one class due to imbalance or insufficient training iterations. This was fixed using class balancing and increasing iterations.”
+3.The model achieved around 98.8% accuracy with balanced precision and recall. The confusion matrix shows minimal misclassification, indicating strong generalization. I also validated performance using cross-validation.
+4.“My model struggled with general knowledge statements because it was trained on news articles. This highlights the importance of domain-specific training data and distribution alignment.”
+5.“My initial SVM + Word2Vec model struggled with generalization and negation. I improved it using contextual embeddings like BERT, added diverse training data, and incorporated hybrid techniques to handle real-world variability.”
+6.“I used BERT as a feature extractor to generate contextual embeddings and trained an SVM classifier on top for fake news detection. This approach improves semantic understanding compared to traditional methods like Word2Vec.”
+7.model = SVC(kernel='rbf')
+8.for text in df["text"]:
+    emb = get_bert_embedding(str(text))
+    X.append(emb)
+1. BERT is VERY HEAVY
+Each sentence → passes through 12-layer transformer
+Takes ~0.1–0.5 sec per sentence (CPU)
+👉 If you have:
+40,000 rows
+➡️ 40,000 × 0.2 sec ≈ 8000 seconds (~2+ hours) 😱
+solution: Use batching 10times faster processing.
+9.🧠 Interview Insight
+
+“BERT embedding extraction is computationally expensive, so I optimized it using batch processing and GPU acceleration.”
+After this fix model will take 20-25 minutes to execute
